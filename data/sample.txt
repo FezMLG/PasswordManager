@@ -8,3 +8,12 @@ categoryPersonal
 typeWeb
 serviceGoogle
 #END
+
+#START
+nameTest2
+loginHun2
+passTest1232
+categoryPersonal2
+typeWeb2
+serviceGoogle2
+#END
