@@ -12,7 +12,7 @@ _deps
 
 out
 
-/cmake-build-debug/
+cmake-build-debug
 
 
 # Prerequisites
