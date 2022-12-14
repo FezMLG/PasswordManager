@@ -1,9 +1,9 @@
-#include <iostream>
+#include "File.h"
 
 using namespace std;
-
+   
 int main()
 {
-	cout << "Hello CMake." << endl;
+    loadFile();
 	return 0;
 }

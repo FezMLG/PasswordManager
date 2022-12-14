@@ -1,0 +1,10 @@
+AbCd
+
+#START
+nameTest
+loginHun
+passTest123
+categoryPersonal
+typeWeb
+serviceGoogle
+#END

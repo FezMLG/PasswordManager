@@ -2,8 +2,13 @@
 
 using namespace std;
 
-int file()
-{
-	cout << "Hello CMake." << endl;
-	return 0;
-}
+void loadFile() {
+    string text;
+    fstream LoadedFile("../data/sample.txt");
+
+    while (getline (LoadedFile, text)) {
+        cout << text << endl;
+    }
+
+    LoadedFile.close();
+};
