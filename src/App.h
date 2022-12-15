@@ -6,9 +6,10 @@
 #define PASSWORDMANAGER_APP_H
 
 #include <iostream>
+#include "Manager.h"
 
 void start();
-void mainMenu();
-void handleOption();
+void mainMenu(Manager manager);
+void handleOption(Manager manager);
 
 #endif //PASSWORDMANAGER_APP_H

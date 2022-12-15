@@ -20,6 +20,7 @@ public:
     void pushToEntries(const Entry& entry);
     vector<Entry> getEntries();
     void setEntries(vector<Entry> entries);
+    void createNewEntry();
 };
 
 

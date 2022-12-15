@@ -1,9 +1,9 @@
-﻿#include "File.h"
-#include "Entry.h"
+﻿#include <fstream>
+#include "Manager.h"
 
 using namespace std;
 
-void loadFile() {
+void readFromFile(Manager* manager) {
     string control;
     string text;
 
@@ -34,10 +34,20 @@ void loadFile() {
             getline (LoadedFile, text);
             string service = text;
 
-            Entry* entry = new Entry(name, login, password, category, type, service);
+            auto* entry = new Entry(name, login, password, category, type, service);
             entry->print();
+            manager->pushToEntries(*entry);
         }
     }
 
     LoadedFile.close();
 };
+
+void saveToFile(Entry* entry){
+    std::ofstream LoadedFile;
+    LoadedFile.open("../data/sample.txt", std::ios::app);
+
+    LoadedFile << entry->printForFile();
+
+    LoadedFile.close();
+}

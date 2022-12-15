@@ -12,10 +12,18 @@ Entry::Entry(const string &name, const string &login, const string &password,
 }
 
 void Entry::print() {
-    cout << name << endl;
+    cout << "----------- " << name << " -----------" << endl;
     cout << login << endl;
     cout << password << endl;
     cout << category << endl;
     cout << type << endl;
     cout << service << endl;
+    cout << "------------------------------" << endl;
+}
+
+string Entry::printForFile() {
+    return "\n#START\n"
+    + name + '\n' + login + '\n' + password + '\n'
+    + category + '\n' + type + '\n' + service
+    + "\n#END\n";
 }

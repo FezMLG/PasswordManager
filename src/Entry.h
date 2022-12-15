@@ -18,4 +18,5 @@ public:
           const std::string &type, const std::string &service);
 
     void print();
+    string printForFile();
 };

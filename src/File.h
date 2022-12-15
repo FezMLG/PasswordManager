@@ -1,7 +1,10 @@
 ﻿#pragma once
 
 #include <iostream>
-#include <fstream>
+#include "Manager.h"
 
-void loadFile();
+void createFile();
 
+void readFromFile(Manager* manager);
+
+void saveToFile(Entry* entry);
