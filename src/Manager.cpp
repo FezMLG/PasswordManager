@@ -2,6 +2,7 @@
 // Created by Konrad on 15.12.2022.
 //
 
+#include <algorithm>
 #include "Manager.h"
 #include "File.h"
 
@@ -17,14 +18,25 @@ vector<Entry> Manager::getEntries() {
     return entries;
 }
 
+vector<string> Manager::getNames() {
+    vector<string> names;
+    for(Entry entry : entries){
+        names.push_back(entry.getName());
+    }
+    return names;
+}
+
 void Manager::setEntries(vector<Entry> newEntries) {
     this->entries = std::move(newEntries);
 }
 
-void Manager::createNewEntry() {
+void Manager::createNewEntry(Manager* manager) {
     string name, login, password, category, type, service;
-    std::cout << "Name:" << std::endl;
-    std::cin >> name;
+
+    do{
+        std::cout << "Name:" << std::endl;
+        std::cin >> name;
+    }while(std::any_of(manager->getNames().begin(), manager->getNames().end(), [&name](const string& i){return i==name;}));
 
     std::cout << "Login:" << std::endl;
     std::cin >> login;

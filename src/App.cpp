@@ -14,8 +14,8 @@ void start(){
 
 void mainMenu(Manager manager){
     std::cout << "Choose option: " << std::endl;
-    std::cout << "1. Load file" << std::endl;
-    std::cout << "2. Add to file" << std::endl;
+    std::cout << "2. Load file" << std::endl;
+    std::cout << "3. Add to file" << std::endl;
     handleOption(std::move(manager));
 }
 
@@ -25,10 +25,29 @@ void handleOption(Manager manager){
 
     switch (selectedOption) {
         case 1:
+            //TODO search
             readFromFile(&manager);
             break;
         case 2:
-            manager.createNewEntry();
+            //TODO sorting
+            readFromFile(&manager);
+            break;
+        case 3:
+            manager.createNewEntry(&manager);
+            break;
+        case 4:
+            //TODO edit password
+            manager.createNewEntry(&manager);
+            break;
+        case 5:
+            //TODO Delete password
+            manager.createNewEntry(&manager);
+            break;
+        case 6:
+            //TODO Add category
+            break;
+        case 7:
+            //TODO Delete category
             break;
         default:
             std::cout << "Invalid option" << std::endl;

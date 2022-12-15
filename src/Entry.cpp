@@ -21,6 +21,10 @@ void Entry::print() {
     cout << "------------------------------" << endl;
 }
 
+string Entry::getName(){
+    return name;
+}
+
 string Entry::printForFile() {
     return "\n#START\n"
     + name + '\n' + login + '\n' + password + '\n'

@@ -43,6 +43,10 @@ void readFromFile(Manager* manager) {
     LoadedFile.close();
 };
 
+void deleteFromFile(){
+
+};
+
 void saveToFile(Entry* entry){
     std::ofstream LoadedFile;
     LoadedFile.open("../data/sample.txt", std::ios::app);

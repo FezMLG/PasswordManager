@@ -19,4 +19,6 @@ public:
 
     void print();
     string printForFile();
+
+    string getName();
 };
