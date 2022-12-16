@@ -14,13 +14,23 @@ using namespace std;
 class Manager {
 private:
     vector<Entry> entries;
+    string password;
+    string filePath;
 public:
     Manager();
 
     void pushToEntries(const Entry& entry);
     vector<Entry> getEntries();
     void setEntries(vector<Entry> entries);
-    void createNewEntry(Manager* manager);
+    void createNewEntry();
+    void removeEntry();
+
+    void setPassword(string newPassword);
+    string getPassword();
+
+    void setFilePath(string newPath);
+    string getFilePath();
+
 
     vector<string> getNames();
 };

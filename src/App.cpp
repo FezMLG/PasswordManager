@@ -9,13 +9,27 @@
 
 void start(){
     Manager manager = *new Manager();
+    readFromFile(&manager);
+//    getFileAndPassword(&manager);
     mainMenu(manager);
 };
 
+void getFileAndPassword(Manager* manager){
+    string temp;
+    std::cout << "Type password: " << endl;
+    std::cin >> temp;
+    manager->setPassword(temp);
+
+    std::cout << "Path to file: " << endl;
+    std::cin >> temp;
+    manager->setFilePath(temp);
+}
+
 void mainMenu(Manager manager){
     std::cout << "Choose option: " << std::endl;
-    std::cout << "2. Load file" << std::endl;
+    std::cout << "2. Print entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
+    std::cout << "5. Remove from file" << std::endl;
     handleOption(std::move(manager));
 }
 
@@ -30,18 +44,21 @@ void handleOption(Manager manager){
             break;
         case 2:
             //TODO sorting
-            readFromFile(&manager);
+            for(auto& entry: manager.getEntries()){
+                entry.print();
+            }
             break;
         case 3:
-            manager.createNewEntry(&manager);
+            manager.createNewEntry();
             break;
         case 4:
             //TODO edit password
-            manager.createNewEntry(&manager);
+            manager.createNewEntry();
             break;
         case 5:
             //TODO Delete password
-            manager.createNewEntry(&manager);
+            manager.removeEntry();
+            overrideFile(&manager);
             break;
         case 6:
             //TODO Add category

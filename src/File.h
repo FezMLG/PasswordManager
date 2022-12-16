@@ -7,6 +7,12 @@ void createFile();
 
 void readFromFile(Manager* manager);
 
-void saveToFile(Entry* entry);
+void deleteFromFile(Manager* manager, string name);
 
-void deleteFromFile();
+string getControlSum(string file);
+
+void overrideFile(Manager* manager);
+
+void appendToFile(Entry* entry);
+
+

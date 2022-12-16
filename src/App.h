@@ -9,6 +9,7 @@
 #include "Manager.h"
 
 void start();
+void getFileAndPassword(Manager* manager);
 void mainMenu(Manager manager);
 void handleOption(Manager manager);
 
