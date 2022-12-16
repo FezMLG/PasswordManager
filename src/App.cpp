@@ -11,7 +11,7 @@ void start(){
     Manager manager = *new Manager();
     readFromFile(&manager);
 //    getFileAndPassword(&manager);
-    mainMenu(manager);
+    mainMenu(&manager);
 };
 
 void getFileAndPassword(Manager* manager){
@@ -25,40 +25,39 @@ void getFileAndPassword(Manager* manager){
     manager->setFilePath(temp);
 }
 
-void mainMenu(Manager manager){
+void mainMenu(Manager* manager){
     std::cout << "Choose option: " << std::endl;
     std::cout << "2. Print entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
     std::cout << "5. Remove from file" << std::endl;
-    handleOption(std::move(manager));
+    handleOption(manager);
 }
 
-void handleOption(Manager manager){
+void handleOption(Manager* manager){
     int selectedOption;
     std::cin >> selectedOption;
 
     switch (selectedOption) {
         case 1:
             //TODO search
-            readFromFile(&manager);
+            readFromFile(manager);
             break;
         case 2:
             //TODO sorting
-            for(auto& entry: manager.getEntries()){
+            for(auto& entry: manager->getEntries()){
                 entry.print();
             }
             break;
         case 3:
-            manager.createNewEntry();
+            manager->createNewEntry();
             break;
         case 4:
             //TODO edit password
-            manager.createNewEntry();
+            manager->createNewEntry();
             break;
         case 5:
-            //TODO Delete password
-            manager.removeEntry();
-            overrideFile(&manager);
+            manager->removeEntry();
+            overrideFile(manager);
             break;
         case 6:
             //TODO Add category

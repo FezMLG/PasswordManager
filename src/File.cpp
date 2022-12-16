@@ -52,7 +52,7 @@ void deleteFromFile(Manager* manager, const string& name){
     manager->setEntries(temp);
 };
 
-string getControlSum(string file){
+string getControlSum(const string& file){
     string control;
     fstream File(file);
     getline (File, control);
