@@ -9,9 +9,10 @@
 
 void start(){
     Manager manager = *new Manager();
-    readFromFile(&manager);
+    Categories categories = *new Categories();
+    readFromFile(&manager, &categories);
 //    getFileAndPassword(&manager);
-    mainMenu(&manager);
+    mainMenu(&manager, &categories);
 };
 
 void getFileAndPassword(Manager* manager){
@@ -25,22 +26,26 @@ void getFileAndPassword(Manager* manager){
     manager->setFilePath(temp);
 }
 
-void mainMenu(Manager* manager){
+void mainMenu(Manager* manager, Categories* categories){
     std::cout << "Choose option: " << std::endl;
     std::cout << "2. Print entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
     std::cout << "5. Remove from file" << std::endl;
-    handleOption(manager);
+    std::cout << "6. Add new category" << std::endl;
+    std::cout << "7. Delete category" << std::endl;
+    std::cout << "8. List categories" << std::endl;
+    std::cout << "-1. Exit" << std::endl;
+    handleOption(manager, categories);
 }
 
-void handleOption(Manager* manager){
+void handleOption(Manager* manager, Categories* categories){
     int selectedOption;
     std::cin >> selectedOption;
 
     switch (selectedOption) {
         case 1:
             //TODO search
-            readFromFile(manager);
+
             break;
         case 2:
             //TODO sorting
@@ -60,15 +65,20 @@ void handleOption(Manager* manager){
             overrideFile(manager);
             break;
         case 6:
-            //TODO Add category
+            newCategoryForm(categories);
             break;
         case 7:
-            //TODO Delete category
+            deleteCategoryForm(categories);
             break;
+        case 8:
+            categories->printCategories();
+            break;
+        case -1:
+            exit(0);
         default:
             std::cout << "Invalid option" << std::endl;
             break;
     }
-    mainMenu(manager);
+    mainMenu(manager, categories);
 }
 

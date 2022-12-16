@@ -2,14 +2,15 @@
 
 #include <iostream>
 #include "Manager.h"
+#include "Categories.h"
 
 void createFile();
 
-void readFromFile(Manager* manager);
+void readFromFile(Manager* manager, Categories* categories);
 
-void deleteFromFile(Manager* manager, string name);
+void deleteFromFile(Manager* manager, const string& name);
 
-string getControlSum(string file);
+string getControlSum(const string& file);
 
 void overrideFile(Manager* manager);
 

@@ -1,9 +1,9 @@
 ﻿#include <fstream>
-#include "Manager.h"
+#include "File.h"
 
 using namespace std;
 
-void readFromFile(Manager* manager) {
+void readFromFile(Manager* manager, Categories* categories) {
     string control;
     string text;
 
@@ -27,6 +27,7 @@ void readFromFile(Manager* manager) {
 
             getline (LoadedFile, text);
             string category = text;
+            categories->addName(category);
 
             getline (LoadedFile, text);
             string type = text;

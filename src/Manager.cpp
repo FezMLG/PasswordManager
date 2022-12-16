@@ -83,7 +83,7 @@ void Manager::createNewEntry() {
 }
 
 void Manager::setFilePath(string newPath) {
-    this->filePath = newPath;
+    this->filePath = std::move(newPath);
 }
 
 string Manager::getFilePath() {
