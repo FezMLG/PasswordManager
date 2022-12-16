@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void readFromFile(Manager* manager, Categories* categories) {
+void readFromFile(Manager* manager) {
     string control;
     string text;
 
@@ -27,7 +27,7 @@ void readFromFile(Manager* manager, Categories* categories) {
 
             getline (LoadedFile, text);
             string category = text;
-            categories->addName(category);
+            manager->getCategories()->addName(category);
 
             getline (LoadedFile, text);
             string type = text;

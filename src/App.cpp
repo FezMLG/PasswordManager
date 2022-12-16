@@ -3,16 +3,14 @@
 //
 
 #include "App.h"
-
-#include <utility>
 #include "File.h"
 
 void start(){
-    Manager manager = *new Manager();
     Categories categories = *new Categories();
-    readFromFile(&manager, &categories);
+    Manager manager = *new Manager(&categories);
+    readFromFile(&manager);
 //    getFileAndPassword(&manager);
-    mainMenu(&manager, &categories);
+    mainMenu(&manager);
 };
 
 void getFileAndPassword(Manager* manager){
@@ -26,7 +24,7 @@ void getFileAndPassword(Manager* manager){
     manager->setFilePath(temp);
 }
 
-void mainMenu(Manager* manager, Categories* categories){
+void mainMenu(Manager* manager){
     std::cout << "Choose option: " << std::endl;
     std::cout << "2. Print entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
@@ -35,10 +33,10 @@ void mainMenu(Manager* manager, Categories* categories){
     std::cout << "7. Delete category" << std::endl;
     std::cout << "8. List categories" << std::endl;
     std::cout << "-1. Exit" << std::endl;
-    handleOption(manager, categories);
+    handleOption(manager);
 }
 
-void handleOption(Manager* manager, Categories* categories){
+void handleOption(Manager* manager){
     int selectedOption;
     std::cin >> selectedOption;
 
@@ -65,13 +63,13 @@ void handleOption(Manager* manager, Categories* categories){
             overrideFile(manager);
             break;
         case 6:
-            newCategoryForm(categories);
+            newCategoryForm(manager->getCategories());
             break;
         case 7:
-            deleteCategoryForm(categories);
+            deleteCategoryForm(manager->getCategories());
             break;
         case 8:
-            categories->printCategories();
+            manager->getCategories()->printCategories();
             break;
         case -1:
             exit(0);
@@ -79,6 +77,6 @@ void handleOption(Manager* manager, Categories* categories){
             std::cout << "Invalid option" << std::endl;
             break;
     }
-    mainMenu(manager, categories);
+    mainMenu(manager);
 }
 

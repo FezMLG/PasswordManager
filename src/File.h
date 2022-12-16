@@ -6,7 +6,7 @@
 
 void createFile();
 
-void readFromFile(Manager* manager, Categories* categories);
+void readFromFile(Manager* manager);
 
 void deleteFromFile(Manager* manager, const string& name);
 

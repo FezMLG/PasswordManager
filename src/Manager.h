@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "Entry.h"
+#include "Categories.h"
 #include <utility>
 
 using namespace std;
@@ -16,8 +17,10 @@ private:
     vector<Entry> entries;
     string password;
     string filePath;
+    Categories* categories;
+
 public:
-    Manager();
+    Manager(Categories* categories1);
 
     void pushToEntries(const Entry& entry);
     vector<Entry> getEntries();
@@ -31,6 +34,8 @@ public:
     void setFilePath(string newPath);
     string getFilePath();
 
+    void setCategories(Categories* pCategories);
+    Categories* getCategories();
 
     vector<string> getNames();
 };

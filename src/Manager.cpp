@@ -7,8 +7,9 @@
 #include "Manager.h"
 #include "File.h"
 
-Manager::Manager() {
+Manager::Manager(Categories* categories1) {
     this->entries = {};
+    this->categories = categories1;
 }
 
 void Manager::pushToEntries(const Entry &entry) {
@@ -67,8 +68,12 @@ void Manager::createNewEntry() {
     std::cout << "Password:" << std::endl;
     std::cin >> password;
 
-    std::cout << "Category:" << std::endl;
-    std::cin >> category;
+    categories->printCategories();
+    do{
+        std::cout << "Category:" << std::endl;
+        std::cin >> category;
+    }while(!categories->getNames()[category]);
+
 
     std::cout << "Type:" << std::endl;
     std::cin >> type;
@@ -88,4 +93,12 @@ void Manager::setFilePath(string newPath) {
 
 string Manager::getFilePath() {
     return this->filePath;
+}
+
+void Manager::setCategories(Categories *pCategories) {
+    this->categories = pCategories;
+}
+
+Categories* Manager::getCategories() {
+    return this->categories;
 }

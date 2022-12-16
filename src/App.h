@@ -7,11 +7,10 @@
 
 #include <iostream>
 #include "Manager.h"
-#include "Categories.h"
 
 void start();
 void getFileAndPassword(Manager* manager);
-void mainMenu(Manager* manager, Categories* categories);
-void handleOption(Manager* manager, Categories* categories);
+void mainMenu(Manager* manager);
+void handleOption(Manager* manager);
 
 #endif //PASSWORDMANAGER_APP_H
