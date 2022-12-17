@@ -21,14 +21,14 @@ void getFileAndPassword(Manager *manager) {
     std::cin >> temp;
     manager->setPassword(temp);
 
-//    std::cout << "Path to file: " << endl;
-//    std::cin >> temp;
-    manager->setFilePath("../data/encrypt.txt");
+    temp = listAndSelectFile();
+    manager->setFilePath(temp);
 }
 
 void mainMenu(Manager *manager) {
     std::cout << "Choose option: " << std::endl;
-    std::cout << "2. Print entries" << std::endl;
+    std::cout << "1. Search entries" << std::endl;
+    std::cout << "2. Sort entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
     std::cout << "4. Edit entry" << std::endl;
     std::cout << "5. Remove from file" << std::endl;
@@ -46,7 +46,9 @@ void handleOption(Manager *manager) {
     switch (selectedOption) {
         case 1:
             //TODO search
-
+            for (auto &entry: manager->getEntries()) {
+                entry.print();
+            }
             break;
         case 2:
             //TODO sorting

@@ -7,13 +7,20 @@
 
 #pragma once
 
+#include <fstream>
+#include <filesystem>
 #include <iostream>
 #include "Manager.h"
 #include "Categories.h"
 
+using namespace std;
+namespace fs = std::filesystem;
+
 bool checkIfFileExists(const std::string &name);
 
-void createFile();
+string listAndSelectFile();
+
+void createFile(const string &name);
 
 void readFromFile(Manager *manager);
 

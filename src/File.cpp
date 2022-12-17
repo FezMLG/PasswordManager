@@ -2,19 +2,42 @@
 // Created by Konrad on 15.12.2022.
 //
 
-#include <fstream>
 #include "File.h"
 
-using namespace std;
 
-static string controlSum = "519f56b8-c7bc-428f-928f-06bd8243f82d";
+static string controlSum{"519f56b8-c7bc-428f-928f-06bd8243f82d"};
+string dataFolderPath = fs::path{"../data"}.string();
+string decryptedFilePath = fs::path{"../data/temp/decrypted.txt"}.string();
+string tempFilePath = fs::path{"../data/temp/temp.txt"}.string();
 
 bool checkIfFileExists(const std::string &name) {
     ifstream f(name.c_str());
     return f.good();
 }
 
-void createFile(const std::string &name) {
+string listAndSelectFile() {
+    std::vector<fs::path> file_paths;
+
+    for (const fs::directory_entry &entry: fs::directory_iterator(dataFolderPath)) {
+        if (entry.is_regular_file()) {
+            file_paths.push_back(entry.path());
+        }
+    }
+
+    // Print the file paths
+    int i = 0;
+    for (const fs::path &path: file_paths) {
+        std::cout << i << ": " << path << std::endl;
+        i++;
+    }
+    cout << "-------------" << endl << "Select file number: " << endl;
+    int selectedFile;
+    cin >> selectedFile;
+
+    return file_paths[selectedFile].string();
+}
+
+void createFile(const string &name) {
     std::ofstream LoadedFile;
     LoadedFile.open(name, std::ios::app);
 
@@ -25,16 +48,16 @@ void createFile(const std::string &name) {
 
 void readFromFile(Manager *manager) {
     if (!checkIfFileExists(manager->getFilePath())) {
-        createFile("../data/decrypt.txt");
-        encryptFile("../data/decrypt.txt", manager->getFilePath(), manager->getPassword());
+        createFile(decryptedFilePath);
+        encryptFile(decryptedFilePath, manager->getFilePath(), manager->getPassword());
     }
-    decryptFile(manager->getFilePath(), "../data/decrypt.txt", manager->getPassword());
+    decryptFile(manager->getFilePath(), decryptedFilePath, manager->getPassword());
 
 
     string control;
     string text;
 
-    fstream LoadedFile("../data/decrypt.txt");
+    fstream LoadedFile(decryptedFilePath);
 
     getline(LoadedFile, control);
     if (control != controlSum) {
@@ -69,7 +92,7 @@ void readFromFile(Manager *manager) {
     }
 
     LoadedFile.close();
-    std::remove("../data/decrypt.txt");
+    std::remove(decryptedFilePath.c_str());
 };
 
 void deleteFromFile(Manager *manager, const string &name) {
@@ -94,89 +117,76 @@ string getControlSum(const string &file) {
 };
 
 void overrideFile(Manager *manager) {
-    decryptFile(manager->getFilePath(), "../data/decrypt.txt", manager->getPassword());
+    decryptFile(manager->getFilePath(), decryptedFilePath, manager->getPassword());
 
-    const char *file = "../data/decrypt.txt";
-    string control = getControlSum(file);
+    string control = getControlSum(decryptedFilePath);
     string text;
     for (auto &entry: manager->getEntries()) {
         text.append(entry.printForFile());
     }
 
-    std::ofstream LoadedFile("../data/temp.txt");
+    std::ofstream LoadedFile(tempFilePath);
 
     LoadedFile << control << '\n';
     LoadedFile << text;
 
     LoadedFile.close();
-    std::remove(file);
-    std::rename("../data/temp.txt", file);
+    std::remove(decryptedFilePath.c_str());
+    std::rename(tempFilePath.c_str(), decryptedFilePath.c_str());
 
-    encryptFile("../data/decrypt.txt", manager->getFilePath(), manager->getPassword());
-    std::remove("../data/decrypt.txt");
+    encryptFile(decryptedFilePath, manager->getFilePath(), manager->getPassword());
+    std::remove(decryptedFilePath.c_str());
 }
 
 void appendToFile(Entry *entry, Manager *manager) {
-    decryptFile(manager->getFilePath(), "../data/decrypt.txt", manager->getPassword());
+    decryptFile(manager->getFilePath(), decryptedFilePath, manager->getPassword());
 
     std::ofstream LoadedFile;
-    LoadedFile.open("../data/decrypt.txt", std::ios::app);
+    LoadedFile.open(decryptedFilePath, std::ios::app);
 
     LoadedFile << entry->printForFile();
 
     LoadedFile.close();
 
     std::remove(manager->getFilePath().c_str());
-    encryptFile("../data/decrypt.txt", manager->getFilePath(), manager->getPassword());
-    std::remove("../data/decrypt.txt");
+    encryptFile(decryptedFilePath, manager->getFilePath(), manager->getPassword());
+    std::remove(decryptedFilePath.c_str());
 }
 
-// Function to encrypt a file
 void encryptFile(const std::string &inputFile, const std::string &outputFile, std::string key) {
-    // Open the input and output files
     std::ifstream in(inputFile, std::ios::binary);
     std::ofstream out(outputFile, std::ios::binary);
 
-    // Read the input file one byte at a time and encrypt each byte
     int passLength = key.length();
     char c;
     int i = 0;
     while (in.get(c)) {
         if (i == passLength) i = 0;
-        // Encrypt the byte by XORing it with the key
         c ^= key[i];
 
-        // Write the encrypted byte to the output file
         out.put(c);
         i++;
     }
 
-    // Close the input and output files
     in.close();
     out.close();
 }
 
-// Function to decrypt a file
 void decryptFile(const std::string &inputFile, const std::string &outputFile, std::string key) {
-    // Open the input and output files
     std::ifstream in(inputFile, std::ios::binary);
     std::ofstream out(outputFile, std::ios::binary);
 
-    // Read the input file one byte at a time and encrypt each byte
     int passLength = key.length();
     char c;
     int i = 0;
     while (in.get(c)) {
         if (i == passLength) i = 0;
-        // Encrypt the byte by XORing it with the key
         c ^= key[i];
 
-        // Write the encrypted byte to the output file
         out.put(c);
         i++;
     }
 
-    // Close the input and output files
     in.close();
     out.close();
 }
