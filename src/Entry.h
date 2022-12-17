@@ -1,3 +1,10 @@
+//
+// Created by Konrad on 15.12.2022.
+//
+
+#ifndef PASSWORDMANAGER_ENTRY_H
+#define PASSWORDMANAGER_ENTRY_H
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -33,3 +40,5 @@ public:
 
     string getService();
 };
+
+#endif //PASSWORDMANAGER_ENTRY_H

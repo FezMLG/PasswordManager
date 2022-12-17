@@ -1,4 +1,8 @@
-﻿#include <fstream>
+﻿//
+// Created by Konrad on 15.12.2022.
+//
+
+#include <fstream>
 #include "File.h"
 
 using namespace std;

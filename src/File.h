@@ -1,4 +1,11 @@
-﻿#pragma once
+﻿//
+// Created by Konrad on 15.12.2022.
+//
+
+#ifndef PASSWORDMANAGER_FILE_H
+#define PASSWORDMANAGER_FILE_H
+
+#pragma once
 
 #include <iostream>
 #include "Manager.h"
@@ -20,5 +27,4 @@ void encryptFile(const std::string &inputFile, const std::string &outputFile, st
 
 void decryptFile(const std::string &inputFile, const std::string &outputFile, std::string key);
 
-
-
+#endif //PASSWORDMANAGER_FILE_H
