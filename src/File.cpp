@@ -7,8 +7,29 @@
 
 using namespace std;
 
+static string controlSum = "519f56b8-c7bc-428f-928f-06bd8243f82d";
+
+bool checkIfFileExists(const std::string &name) {
+    ifstream f(name.c_str());
+    return f.good();
+}
+
+void createFile(const std::string &name) {
+    std::ofstream LoadedFile;
+    LoadedFile.open(name, std::ios::app);
+
+    LoadedFile << controlSum;
+
+    LoadedFile.close();
+}
+
 void readFromFile(Manager *manager) {
+    if (!checkIfFileExists(manager->getFilePath())) {
+        createFile("../data/decrypt.txt");
+        encryptFile("../data/decrypt.txt", manager->getFilePath(), manager->getPassword());
+    }
     decryptFile(manager->getFilePath(), "../data/decrypt.txt", manager->getPassword());
+
 
     string control;
     string text;
@@ -16,8 +37,9 @@ void readFromFile(Manager *manager) {
     fstream LoadedFile("../data/decrypt.txt");
 
     getline(LoadedFile, control);
-    if (control != "519f56b8-c7bc-428f-928f-06bd8243f82d") {
-        throw runtime_error("Error when decoding file");
+    if (control != controlSum) {
+        cout << "Error when decoding file";
+        exit(1);
     }
 
     while (getline(LoadedFile, text)) {
@@ -64,7 +86,7 @@ string getControlSum(const string &file) {
     string control;
     fstream File(file);
     getline(File, control);
-    if (control != "AbCd") {
+    if (control != controlSum) {
         throw runtime_error("Error when decoding file");
     }
     File.close();
@@ -115,12 +137,6 @@ void encryptFile(const std::string &inputFile, const std::string &outputFile, st
     std::ifstream in(inputFile, std::ios::binary);
     std::ofstream out(outputFile, std::ios::binary);
 
-    // Check if the files were opened successfully
-    if (!in || !out) {
-        std::cout << "Error opening files!" << std::endl;
-        return;
-    }
-
     // Read the input file one byte at a time and encrypt each byte
     int passLength = key.length();
     char c;
@@ -145,12 +161,6 @@ void decryptFile(const std::string &inputFile, const std::string &outputFile, st
     // Open the input and output files
     std::ifstream in(inputFile, std::ios::binary);
     std::ofstream out(outputFile, std::ios::binary);
-
-    // Check if the files were opened successfully
-    if (!in || !out) {
-        std::cout << "Error opening files!" << std::endl;
-        return;
-    }
 
     // Read the input file one byte at a time and encrypt each byte
     int passLength = key.length();

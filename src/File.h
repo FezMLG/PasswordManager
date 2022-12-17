@@ -11,6 +11,8 @@
 #include "Manager.h"
 #include "Categories.h"
 
+bool checkIfFileExists(const std::string &name);
+
 void createFile();
 
 void readFromFile(Manager *manager);
