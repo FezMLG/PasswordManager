@@ -88,7 +88,7 @@ void Manager::createNewEntryForm() {
 
     auto* entry = new Entry(name, login, password, category, type, service);
     entry->print();
-    appendToFile(entry);
+    appendToFile(entry, this);
     this->pushToEntries(*entry);
 }
 
@@ -146,17 +146,18 @@ void Manager::editEntryForm() {
 }
 
 Entry Manager::getEntryWithName(const string &name) {
-    for(auto& entry : this->getEntries()){
-        if(entry.getName() == name){
+    for (auto &entry: this->getEntries()) {
+        if (entry.getName() == name) {
             return entry;
         }
     }
-}
+    throw runtime_error("Error when getting entry");
+};
 
-string getEditNewValueForm(const string& valueName,const string& oldValue, string newValue){
+string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue) {
     std::cout << valueName << " [" << oldValue << "]: " << std::endl;
-    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, newValue);
-    if (newValue.empty()) newValue=oldValue;
+    if (newValue.empty()) newValue = oldValue;
     return newValue;
 };

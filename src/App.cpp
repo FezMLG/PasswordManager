@@ -8,20 +8,22 @@
 void start(){
     Categories categories = *new Categories();
     Manager manager = *new Manager(&categories);
+    getFileAndPassword(&manager);
+//    encryptFile("../data/decrypt.txt", manager.getFilePath(), manager.getPassword());
+//    decryptFile(manager.getFilePath(), "../data/decrypt.txt", manager.getPassword());
     readFromFile(&manager);
-//    getFileAndPassword(&manager);
     mainMenu(&manager);
 };
 
-void getFileAndPassword(Manager* manager){
+void getFileAndPassword(Manager* manager) {
     string temp;
     std::cout << "Type password: " << endl;
     std::cin >> temp;
     manager->setPassword(temp);
 
-    std::cout << "Path to file: " << endl;
-    std::cin >> temp;
-    manager->setFilePath(temp);
+//    std::cout << "Path to file: " << endl;
+//    std::cin >> temp;
+    manager->setFilePath("../data/encrypt.txt");
 }
 
 void mainMenu(Manager* manager){
