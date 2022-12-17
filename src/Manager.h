@@ -34,6 +34,10 @@ public:
 
     void editEntryForm();
 
+    void searchForEntryForm(int option, vector<Entry> *filteredEntries);
+
+    void searchForm(vector<Entry> newEntries);
+
     Entry getEntryWithName(const string &name);
 
     void removeEntry(string name);

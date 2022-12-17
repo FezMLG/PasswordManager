@@ -46,9 +46,7 @@ void handleOption(Manager *manager) {
     switch (selectedOption) {
         case 1:
             //TODO search
-            for (auto &entry: manager->getEntries()) {
-                entry.print();
-            }
+            manager->searchForm(manager->getEntries());
             break;
         case 2:
             //TODO sorting

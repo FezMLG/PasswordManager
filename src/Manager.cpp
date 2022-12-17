@@ -7,6 +7,7 @@
 #include <limits>
 #include "Manager.h"
 #include "File.h"
+#include "App.h"
 
 Manager::Manager(Categories *categories1) {
     this->entries = {};
@@ -154,6 +155,47 @@ Entry Manager::getEntryWithName(const string &name) {
         }
     }
     throw runtime_error("Error when getting entry");
+}
+
+void Manager::searchForm(vector<Entry> newEntries) {
+    vector<Entry> filteredEntries = std::move(newEntries);
+    int searchType;
+
+    cout << "1. Add name search param" << endl;
+    cout << "0. Search results" << endl;
+    cout << "-1. Go to main menu" << endl;
+    cin >> searchType;
+    this->searchForEntryForm(searchType, &filteredEntries);
+};
+
+void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
+    string searchParam;
+    vector<Entry> tempEntries{};
+
+    switch (option) {
+        case 1:
+            cout << "Type name to search:" << endl;
+            cin >> searchParam;
+            for (auto &entry: *filteredEntries) {
+                if (entry.getName().find(searchParam) != std::string::npos) {
+                    tempEntries.push_back(entry);
+                }
+            }
+            filteredEntries->swap(tempEntries);
+            break;
+        case 0:
+            for (auto &entry: *filteredEntries) {
+                entry.print();
+            }
+            break;
+        case -1:
+            mainMenu(this);
+            break;
+        default:
+            cout << "Invalid option" << endl;
+            break;
+    }
+    this->searchForm(*filteredEntries);
 };
 
 string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue) {
