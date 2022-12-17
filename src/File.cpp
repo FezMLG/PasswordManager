@@ -4,15 +4,18 @@
 
 #include "File.h"
 
-
 static string controlSum{"519f56b8-c7bc-428f-928f-06bd8243f82d"};
-string dataFolderPath = fs::path{"../data"}.string();
+fs::path dataFolderPath = fs::path{"../data"};
 string decryptedFilePath = fs::path{"../data/temp/decrypted.txt"}.string();
 string tempFilePath = fs::path{"../data/temp/temp.txt"}.string();
 
 bool checkIfFileExists(const std::string &name) {
-    ifstream f(name.c_str());
-    return f.good();
+    if (FILE *file = fopen(name.c_str(), "r")) {
+        fclose(file);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 string listAndSelectFile() {
@@ -27,13 +30,23 @@ string listAndSelectFile() {
     // Print the file paths
     int i = 0;
     for (const fs::path &path: file_paths) {
-        std::cout << i << ": " << path << std::endl;
+        std::cout << i << ": " << path.string() << std::endl;
         i++;
     }
+    cout << "-1: Your own path" << endl;
     cout << "-------------" << endl << "Select file number: " << endl;
     int selectedFile;
     cin >> selectedFile;
-
+    if (selectedFile == -1) {
+        string userPath;
+        cout << "Type your path: " << endl;
+        cin >> userPath;
+        if (!checkIfFileExists(userPath)) {
+            cout << "File " << userPath << " does not exist" << endl;
+            exit(1);
+        }
+        return fs::path{userPath}.string();
+    }
     return file_paths[selectedFile].string();
 }
 
