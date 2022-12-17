@@ -18,12 +18,18 @@ public:
           const std::string &type, const std::string &service);
 
     void print();
+
     string printForFile();
 
     string getName();
+
     string getLogin();
+
     string getPassword();
+
     string getCategory();
+
     string getType();
+
     string getService();
 };

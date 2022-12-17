@@ -5,7 +5,7 @@
 #include "App.h"
 #include "File.h"
 
-void start(){
+void start() {
     Categories categories = *new Categories();
     Manager manager = *new Manager(&categories);
     getFileAndPassword(&manager);
@@ -15,7 +15,7 @@ void start(){
     mainMenu(&manager);
 };
 
-void getFileAndPassword(Manager* manager) {
+void getFileAndPassword(Manager *manager) {
     string temp;
     std::cout << "Type password: " << endl;
     std::cin >> temp;
@@ -26,7 +26,7 @@ void getFileAndPassword(Manager* manager) {
     manager->setFilePath("../data/encrypt.txt");
 }
 
-void mainMenu(Manager* manager){
+void mainMenu(Manager *manager) {
     std::cout << "Choose option: " << std::endl;
     std::cout << "2. Print entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
@@ -39,7 +39,7 @@ void mainMenu(Manager* manager){
     handleOption(manager);
 }
 
-void handleOption(Manager* manager){
+void handleOption(Manager *manager) {
     int selectedOption;
     std::cin >> selectedOption;
 
@@ -50,7 +50,7 @@ void handleOption(Manager* manager){
             break;
         case 2:
             //TODO sorting
-            for(auto& entry: manager->getEntries()){
+            for (auto &entry: manager->getEntries()) {
                 entry.print();
             }
             break;

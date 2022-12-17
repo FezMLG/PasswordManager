@@ -18,14 +18,19 @@ public:
     Categories();
 
     void setNames(std::map<std::string, int> newNames);
+
     std::map<std::string, int> getNames();
-    void addName(const std::string& name);
-    void removeName(const std::string& name);
+
+    void addName(const std::string &name);
+
+    void removeName(const std::string &name);
+
     void printCategories();
 };
 
-void newCategoryForm(Categories* categories);
-void deleteCategoryForm(Categories* categories);
+void newCategoryForm(Categories *categories);
+
+void deleteCategoryForm(Categories *categories);
 
 
 #endif //PASSWORDMANAGER_CATEGORIES_H

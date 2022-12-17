@@ -21,15 +21,15 @@ void Entry::print() {
     cout << "------------------------------" << endl;
 }
 
-string Entry::getName(){
+string Entry::getName() {
     return name;
 }
 
 string Entry::printForFile() {
     return "\n#START\n"
-    + name + '\n' + login + '\n' + password + '\n'
-    + category + '\n' + type + '\n' + service
-    + "\n#END\n";
+           + name + '\n' + login + '\n' + password + '\n'
+           + category + '\n' + type + '\n' + service
+           + "\n#END\n";
 }
 
 string Entry::getLogin() {

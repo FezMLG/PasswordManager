@@ -1,9 +1,8 @@
 #include "App.h"
 
 using namespace std;
-   
-int main()
-{
+
+int main() {
     start();
-	return 0;
+    return 0;
 }
