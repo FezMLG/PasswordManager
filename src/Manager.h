@@ -25,8 +25,11 @@ public:
     void pushToEntries(const Entry& entry);
     vector<Entry> getEntries();
     void setEntries(vector<Entry> entries);
-    void createNewEntry();
-    void removeEntry();
+    void createNewEntryForm();
+    void removeEntryForm();
+    void editEntryForm();
+    Entry getEntryWithName(const string& name);
+    void removeEntry(string name);
 
     void setPassword(string newPassword);
     string getPassword();
@@ -40,5 +43,6 @@ public:
     vector<string> getNames();
 };
 
+string getEditNewValueForm(const string& valueName,const string& oldValue, string newValue);
 
 #endif //PASSWORDMANAGER_MANAGER_H

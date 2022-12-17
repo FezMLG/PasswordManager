@@ -21,4 +21,9 @@ public:
     string printForFile();
 
     string getName();
+    string getLogin();
+    string getPassword();
+    string getCategory();
+    string getType();
+    string getService();
 };

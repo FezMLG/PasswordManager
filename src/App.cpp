@@ -28,6 +28,7 @@ void mainMenu(Manager* manager){
     std::cout << "Choose option: " << std::endl;
     std::cout << "2. Print entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
+    std::cout << "4. Edit entry" << std::endl;
     std::cout << "5. Remove from file" << std::endl;
     std::cout << "6. Add new category" << std::endl;
     std::cout << "7. Delete category" << std::endl;
@@ -52,14 +53,13 @@ void handleOption(Manager* manager){
             }
             break;
         case 3:
-            manager->createNewEntry();
+            manager->createNewEntryForm();
             break;
         case 4:
-            //TODO edit password
-            manager->createNewEntry();
+            manager->editEntryForm();
             break;
         case 5:
-            manager->removeEntry();
+            manager->removeEntryForm();
             overrideFile(manager);
             break;
         case 6:

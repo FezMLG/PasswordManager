@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <utility>
+#include <limits>
 #include "Manager.h"
 #include "File.h"
 
@@ -40,11 +41,15 @@ void Manager::setEntries(vector<Entry> newEntries) {
     this->entries = std::move(newEntries);
 }
 
-void Manager::removeEntry(){
+void Manager::removeEntryForm(){
     string name;
     std::cout << "Name of entry" << endl;
     std::cin >> name;
 
+    this->removeEntry(name);
+}
+
+void Manager::removeEntry(string name){
     vector<Entry> temp;
     for (auto& entry : this->getEntries()){
         if(entry.getName() != name){
@@ -54,7 +59,7 @@ void Manager::removeEntry(){
     this->setEntries(temp);
 }
 
-void Manager::createNewEntry() {
+void Manager::createNewEntryForm() {
     string name, login, password, category, type, service;
 
     do{
@@ -102,3 +107,56 @@ void Manager::setCategories(Categories *pCategories) {
 Categories* Manager::getCategories() {
     return this->categories;
 }
+
+void Manager::editEntryForm() {
+    cout << "Entries: " << endl;
+    for(auto& entry: this->getEntries()){
+        cout << entry.getName() << endl;
+    }
+    cout << "Type entry name to edit:" << endl;
+
+    string nameToEdit;
+    cin >> nameToEdit;
+
+    Entry oldEntry = getEntryWithName(nameToEdit);
+    this->removeEntry(nameToEdit);
+
+    cout << "Press enter if you want to keep old value" << endl;
+
+    string newName, newLogin, newPassword, newCategory, newType, newService;
+    do{
+        newName = getEditNewValueForm("Name", oldEntry.getName(), newName);
+    }while(std::any_of(this->getNames().begin(), this->getNames().end(), [&newName](const string& i){return i == newName;}));
+
+    newLogin = getEditNewValueForm("Login", oldEntry.getLogin(), newLogin);
+    newPassword = getEditNewValueForm("Password", oldEntry.getPassword(), newPassword);
+
+    categories->printCategories();
+    do{
+        newCategory = getEditNewValueForm("Category", oldEntry.getCategory(), newCategory);
+    }while(!categories->getNames()[newCategory]);
+
+    newType = getEditNewValueForm("Type", oldEntry.getType(), newType);
+    newService= getEditNewValueForm("Service", oldEntry.getService(), newService);
+
+    auto* entry = new Entry(newName, newLogin, newPassword, newCategory, newType, newService);
+    entry->print();
+    this->pushToEntries(*entry);
+    overrideFile(this);
+}
+
+Entry Manager::getEntryWithName(const string &name) {
+    for(auto& entry : this->getEntries()){
+        if(entry.getName() == name){
+            return entry;
+        }
+    }
+}
+
+string getEditNewValueForm(const string& valueName,const string& oldValue, string newValue){
+    std::cout << valueName << " [" << oldValue << "]: " << std::endl;
+    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, newValue);
+    if (newValue.empty()) newValue=oldValue;
+    return newValue;
+};

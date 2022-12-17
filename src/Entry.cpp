@@ -31,3 +31,23 @@ string Entry::printForFile() {
     + category + '\n' + type + '\n' + service
     + "\n#END\n";
 }
+
+string Entry::getLogin() {
+    return this->login;
+}
+
+string Entry::getPassword() {
+    return this->password;
+}
+
+string Entry::getCategory() {
+    return this->category;
+}
+
+string Entry::getType() {
+    return this->type;
+}
+
+string Entry::getService() {
+    return this->service;
+}
