@@ -81,7 +81,6 @@ void Manager::createNewEntryForm() {
         std::cin >> category;
     } while (!categories->getNames()[category]);
 
-
     std::cout << "Type:" << std::endl;
     std::cin >> type;
 
@@ -112,9 +111,7 @@ Categories *Manager::getCategories() {
 
 void Manager::editEntryForm() {
     cout << "Entries: " << endl;
-    for (auto &entry: this->getEntries()) {
-        cout << entry.getName() << endl;
-    }
+    this->printEntriesName();
     cout << "Type entry name to edit:" << endl;
 
     string nameToEdit;
@@ -157,8 +154,8 @@ Entry Manager::getEntryWithName(const string &name) {
     throw runtime_error("Error when getting entry");
 }
 
-void Manager::searchForm(vector<Entry> &newEntries) {
-    vector<Entry> filteredEntries = newEntries;
+void Manager::searchForm(vector<Entry> newEntries) {
+    vector<Entry> filteredEntries = std::move(newEntries);
     int searchType;
 
     cout << "1. Add name search param" << endl;
@@ -241,6 +238,12 @@ void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
             break;
     }
     this->searchForm(*filteredEntries);
+}
+
+void Manager::printEntriesName() {
+    for (auto &entry: this->getEntries()) {
+        cout << entry.getName() << endl;
+    }
 };
 
 string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue) {

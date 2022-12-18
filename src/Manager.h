@@ -36,7 +36,7 @@ public:
 
     void searchForEntryForm(int option, vector<Entry> *filteredEntries);
 
-    void searchForm(vector<Entry> &newEntries);
+    void searchForm(vector<Entry> newEntries);
 
     Entry getEntryWithName(const string &name);
 
@@ -55,6 +55,8 @@ public:
     Categories *getCategories();
 
     vector<string> getNames();
+
+    void printEntriesName();
 };
 
 string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue);
