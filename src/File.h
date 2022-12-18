@@ -24,8 +24,6 @@ void createFile(const string &name);
 
 void readFromFile(Manager *manager);
 
-void deleteFromFile(Manager *manager, const string &name);
-
 string getControlSum(const string &file);
 
 void overrideFile(Manager *manager);

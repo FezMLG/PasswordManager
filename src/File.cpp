@@ -108,16 +108,6 @@ void readFromFile(Manager *manager) {
     std::remove(decryptedFilePath.c_str());
 };
 
-void deleteFromFile(Manager *manager, const string &name) {
-    vector<Entry> temp;
-    for (auto &entry: manager->getEntries()) {
-        if (entry.getName() != name) {
-            temp.push_back(entry);
-        }
-    }
-    manager->setEntries(temp);
-};
-
 string getControlSum(const string &file) {
     string control;
     fstream File(file);
