@@ -50,7 +50,7 @@ void Manager::removeEntryForm() {
     this->removeEntry(name);
 }
 
-void Manager::removeEntry(string name) {
+void Manager::removeEntry(const string &name) {
     vector<Entry> temp;
     for (auto &entry: this->getEntries()) {
         if (entry.getName() != name) {
@@ -162,6 +162,10 @@ void Manager::searchForm(vector<Entry> newEntries) {
     int searchType;
 
     cout << "1. Add name search param" << endl;
+    cout << "2. Add login search param" << endl;
+    cout << "3. Add category search param" << endl;
+    cout << "4. Add type search param" << endl;
+    cout << "5. Add service search param" << endl;
     cout << "0. Search results" << endl;
     cout << "-1. Go to main menu" << endl;
     cin >> searchType;
@@ -178,6 +182,47 @@ void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
             cin >> searchParam;
             for (auto &entry: *filteredEntries) {
                 if (entry.getName().find(searchParam) != std::string::npos) {
+                    tempEntries.push_back(entry);
+                }
+            }
+            filteredEntries->swap(tempEntries);
+            break;
+        case 2:
+            cout << "Type login to search:" << endl;
+            cin >> searchParam;
+            for (auto &entry: *filteredEntries) {
+                if (entry.getLogin().find(searchParam) != std::string::npos) {
+                    tempEntries.push_back(entry);
+                }
+            }
+            filteredEntries->swap(tempEntries);
+            break;
+        case 3:
+            categories->printCategories();
+            cout << "Type category to search:" << endl;
+            cin >> searchParam;
+            for (auto &entry: *filteredEntries) {
+                if (entry.getCategory().find(searchParam) != std::string::npos) {
+                    tempEntries.push_back(entry);
+                }
+            }
+            filteredEntries->swap(tempEntries);
+            break;
+        case 4:
+            cout << "Type type to search:" << endl;
+            cin >> searchParam;
+            for (auto &entry: *filteredEntries) {
+                if (entry.getType().find(searchParam) != std::string::npos) {
+                    tempEntries.push_back(entry);
+                }
+            }
+            filteredEntries->swap(tempEntries);
+            break;
+        case 5:
+            cout << "Type service to search:" << endl;
+            cin >> searchParam;
+            for (auto &entry: *filteredEntries) {
+                if (entry.getService().find(searchParam) != std::string::npos) {
                     tempEntries.push_back(entry);
                 }
             }

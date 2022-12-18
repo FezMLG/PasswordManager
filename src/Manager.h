@@ -40,7 +40,7 @@ public:
 
     Entry getEntryWithName(const string &name);
 
-    void removeEntry(string name);
+    void removeEntry(const string &name);
 
     void setPassword(string newPassword);
 

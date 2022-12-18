@@ -5,24 +5,43 @@
 #include "App.h"
 #include "File.h"
 
+bool decryptMode = false;
+
 void start() {
     Categories categories = *new Categories();
     Manager manager = *new Manager(&categories);
     getFileAndPassword(&manager);
-//    encryptFile("../data/decrypt.txt", manager.getFilePath(), manager.getPassword());
-//    decryptFile(manager.getFilePath(), "../data/decrypt.txt", manager.getPassword());
+    if (decryptMode) {
+        int mode;
+        cout << "1. encrypt file" << endl;
+        cout << "2. decrypt file" << endl;
+        cin >> mode;
+        switch (mode) {
+            case 1:
+                encryptFile("../data/decrypt.txt", manager.getFilePath(), manager.getPassword());
+                break;
+            case 2:
+                decryptFile(manager.getFilePath(), "../data/decrypt.txt", manager.getPassword());
+                break;
+            default:
+                cout << "Wrong value" << endl;
+                break;
+        }
+        exit(0);
+    }
     readFromFile(&manager);
     mainMenu(&manager);
 };
 
 void getFileAndPassword(Manager *manager) {
     string temp;
-    std::cout << "Type password: " << endl;
-    std::cin >> temp;
-    manager->setPassword(temp);
 
     temp = listAndSelectFile();
     manager->setFilePath(temp);
+
+    std::cout << "Type password: " << endl;
+    std::cin >> temp;
+    manager->setPassword(temp);
 }
 
 void mainMenu(Manager *manager) {
