@@ -61,15 +61,18 @@ void mainMenu(Manager *manager) {
 void handleOption(Manager *manager) {
     int selectedOption;
     std::cin >> selectedOption;
+    vector<Entry> sortedEntries = manager->getEntries();
 
     switch (selectedOption) {
         case 1:
-            //TODO search
             manager->searchForm(manager->getEntries());
             break;
         case 2:
             //TODO sorting
-            for (auto &entry: manager->getEntries()) {
+            std::sort(sortedEntries.begin(), sortedEntries.end(), [](Entry &a, Entry &b) {
+                return a.getName() < b.getName();
+            });
+            for (auto &entry: sortedEntries) {
                 entry.print();
             }
             break;
