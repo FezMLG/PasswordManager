@@ -26,10 +26,10 @@ void manualEncryption(Manager *manager) {
     cin >> mode;
     switch (mode) {
         case 1:
-            encryptFile(manager.getFilePath(), "../data/encrypt.txt", manager.getPassword());
+            encryptFile(manager->getFilePath(), "../data/encrypt.txt", manager->getPassword());
             break;
         case 2:
-            decryptFile(manager.getFilePath(), "../data/decrypt.txt", manager.getPassword());
+            decryptFile(manager->getFilePath(), "../data/decrypt.txt", manager->getPassword());
             break;
         default:
             cout << "Wrong value" << endl;
@@ -49,7 +49,7 @@ void getFileAndPassword(Manager *manager) {
 }
 
 void mainMenu(Manager *manager) {
-    std::cout << "Choose option: " << std::endl;
+    std::cout << "------------- MAIN MENU -------------" << std::endl;
     std::cout << "1. Search entries" << std::endl;
     std::cout << "2. Sort entries" << std::endl;
     std::cout << "3. Add to file" << std::endl;
@@ -59,6 +59,7 @@ void mainMenu(Manager *manager) {
     std::cout << "7. Delete category" << std::endl;
     std::cout << "8. List categories" << std::endl;
     std::cout << "-1. Exit" << std::endl;
+    std::cout << "Choose option: " << std::endl;
     handleOption(manager);
 }
 

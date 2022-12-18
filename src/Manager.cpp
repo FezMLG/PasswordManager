@@ -72,8 +72,7 @@ void Manager::createNewEntryForm() {
     std::cout << "Login:" << std::endl;
     std::cin >> login;
 
-    std::cout << "Password:" << std::endl;
-    std::cin >> password;
+    password = passwordForm();
 
     categories->printCategories();
     do {
@@ -275,6 +274,43 @@ void Manager::deleteCategoryForm() {
     }
     std::cout << "Failed to delete category: " << categoryNameToRemove << std::endl;
     deleteCategoryForm();
+}
+
+string Manager::passwordForm() {
+    int option;
+    std::cout << "Password" << std::endl;
+    std::cout << "1. Generate password" << std::endl;
+    std::cout << "2. My password" << std::endl;
+    std::cin >> option;
+
+    int passwordLength = 16;
+    int passwordStrength = 0;
+    std::string newPassword;
+    switch (option) {
+        case 1:
+            newPassword = Entry::generatePassword(passwordLength);
+            cout << "Your password: " << newPassword << endl;
+            break;
+        case 2:
+            do {
+                std::cout << "Your password:" << std::endl;
+                std::cin >> newPassword;
+                passwordStrength = Entry::checkPasswordStrength(newPassword);
+                std::cout << "Your password strength: " << passwordStrength << std::endl;
+
+                if (passwordStrength < 4) {
+                    cout
+                            << "Your password is too weak, make sure you have at least 8 characters, lower and upper case, number"
+                            << endl;
+                }
+            } while (passwordStrength < 4);
+            break;
+        default:
+            newPassword = Entry::generatePassword(passwordLength);
+            cout << "Your password: " << newPassword << endl;
+            break;
+    }
+    return newPassword;
 }
 
 void newCategoryForm(Categories *categories) {

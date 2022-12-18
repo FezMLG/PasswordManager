@@ -39,6 +39,10 @@ public:
     string getType();
 
     string getService();
+
+    static string generatePassword(int &length);
+
+    static int checkPasswordStrength(const std::string &passwordToCheck);
 };
 
 #endif //PASSWORDMANAGER_ENTRY_H

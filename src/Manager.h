@@ -59,6 +59,8 @@ public:
     void printEntriesName();
 
     void deleteCategoryForm();
+
+    static string passwordForm();
 };
 
 string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue);

@@ -1,4 +1,5 @@
 
+#include <random>
 #include "Entry.h"
 
 Entry::Entry(const string &name, const string &login, const string &password,
@@ -50,4 +51,66 @@ string Entry::getType() {
 
 string Entry::getService() {
     return this->service;
+}
+
+string Entry::generatePassword(int &length) {
+    std::string password;
+    std::string characters = R"(ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\|;:'",.<>/?)";
+
+    // Random number generator
+    std::random_device rd;
+    std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> dist(0, characters.size() - 1);
+
+    for (int i = 0; i < length; i++) {
+        password += characters[dist(rng)];
+    }
+
+    return password;
+}
+
+int Entry::checkPasswordStrength(const std::string &passwordToCheck) {
+    int strength = 0;
+
+    // Check the length of the password
+    if (passwordToCheck.length() >= 8)
+        strength++;
+    if (passwordToCheck.length() >= 12)
+        strength++;
+
+    // Check for uppercase and lowercase letters
+    bool hasUppercase = false;
+    bool hasLowercase = false;
+    for (char c: passwordToCheck) {
+        if (isupper(c))
+            hasUppercase = true;
+        if (islower(c))
+            hasLowercase = true;
+    }
+    if (hasUppercase && hasLowercase)
+        strength++;
+
+    // Check for numbers
+    bool hasNumber = false;
+    for (char c: passwordToCheck) {
+        if (isdigit(c)) {
+            hasNumber = true;
+            break;
+        }
+    }
+    if (hasNumber)
+        strength++;
+
+    // Check for special characters
+    bool hasSpecialChar = false;
+    for (char c: passwordToCheck) {
+        if (!isalnum(c)) {
+            hasSpecialChar = true;
+            break;
+        }
+    }
+    if (hasSpecialChar)
+        strength++;
+
+    return strength;
 }
