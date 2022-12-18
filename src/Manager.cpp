@@ -18,8 +18,8 @@ void Manager::pushToEntries(const Entry &entry) {
     entries.push_back(entry);
 }
 
-void Manager::setPassword(string newPassword) {
-    this->password = std::move(newPassword);
+void Manager::setPassword(string &newPassword) {
+    this->password = newPassword;
 }
 
 string Manager::getPassword() {
@@ -38,8 +38,8 @@ vector<string> Manager::getNames() {
     return names;
 }
 
-void Manager::setEntries(vector<Entry> newEntries) {
-    this->entries = std::move(newEntries);
+void Manager::setEntries(vector<Entry> &newEntries) {
+    this->entries = newEntries;
 }
 
 void Manager::removeEntryForm() {
@@ -94,8 +94,8 @@ void Manager::createNewEntryForm() {
     this->pushToEntries(*entry);
 }
 
-void Manager::setFilePath(string newPath) {
-    this->filePath = std::move(newPath);
+void Manager::setFilePath(string &newPath) {
+    this->filePath = newPath;
 }
 
 string Manager::getFilePath() {
@@ -157,8 +157,8 @@ Entry Manager::getEntryWithName(const string &name) {
     throw runtime_error("Error when getting entry");
 }
 
-void Manager::searchForm(vector<Entry> newEntries) {
-    vector<Entry> filteredEntries = std::move(newEntries);
+void Manager::searchForm(vector<Entry> &newEntries) {
+    vector<Entry> filteredEntries = newEntries;
     int searchType;
 
     cout << "1. Add name search param" << endl;

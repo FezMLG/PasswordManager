@@ -26,7 +26,7 @@ public:
 
     vector<Entry> getEntries();
 
-    void setEntries(vector<Entry> entries);
+    void setEntries(vector<Entry> &entries);
 
     void createNewEntryForm();
 
@@ -36,17 +36,17 @@ public:
 
     void searchForEntryForm(int option, vector<Entry> *filteredEntries);
 
-    void searchForm(vector<Entry> newEntries);
+    void searchForm(vector<Entry> &newEntries);
 
     Entry getEntryWithName(const string &name);
 
     void removeEntry(const string &name);
 
-    void setPassword(string newPassword);
+    void setPassword(string &newPassword);
 
     string getPassword();
 
-    void setFilePath(string newPath);
+    void setFilePath(string &newPath);
 
     string getFilePath();
 
