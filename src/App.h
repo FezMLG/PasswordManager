@@ -10,6 +10,8 @@
 
 void start();
 
+void manualEncryption(Manager *manager);
+
 void getFileAndPassword(Manager *manager);
 
 void mainMenu(Manager *manager);

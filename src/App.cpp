@@ -5,33 +5,37 @@
 #include "App.h"
 #include "File.h"
 
-bool decryptMode = false;
+bool manualEncryptMode = false;
 
 void start() {
     Categories categories = *new Categories();
     Manager manager = *new Manager(&categories);
     getFileAndPassword(&manager);
-    if (decryptMode) {
-        int mode;
-        cout << "1. encrypt file" << endl;
-        cout << "2. decrypt file" << endl;
-        cin >> mode;
-        switch (mode) {
-            case 1:
-                encryptFile("../data/decrypt.txt", manager.getFilePath(), manager.getPassword());
-                break;
-            case 2:
-                decryptFile(manager.getFilePath(), "../data/decrypt.txt", manager.getPassword());
-                break;
-            default:
-                cout << "Wrong value" << endl;
-                break;
-        }
+    if (manualEncryptMode) {
+        manualEncryption(&manager);
         exit(0);
     }
     readFromFile(&manager);
     mainMenu(&manager);
 };
+
+void manualEncryption(Manager *manager) {
+    int mode;
+    cout << "1. encrypt file" << endl;
+    cout << "2. decrypt file" << endl;
+    cin >> mode;
+    switch (mode) {
+        case 1:
+            encryptFile(manager.getFilePath(), "../data/encrypt.txt", manager.getPassword());
+            break;
+        case 2:
+            decryptFile(manager.getFilePath(), "../data/decrypt.txt", manager.getPassword());
+            break;
+        default:
+            cout << "Wrong value" << endl;
+            break;
+    }
+}
 
 void getFileAndPassword(Manager *manager) {
     string temp;
@@ -90,7 +94,7 @@ void handleOption(Manager *manager) {
             newCategoryForm(manager->getCategories());
             break;
         case 7:
-            deleteCategoryForm(manager->getCategories());
+            manager->deleteCategoryForm();
             break;
         case 8:
             manager->getCategories()->printCategories();

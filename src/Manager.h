@@ -57,8 +57,12 @@ public:
     vector<string> getNames();
 
     void printEntriesName();
+
+    void deleteCategoryForm();
 };
 
 string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue);
+
+void newCategoryForm(Categories *categories);
 
 #endif //PASSWORDMANAGER_MANAGER_H

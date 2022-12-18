@@ -28,9 +28,5 @@ public:
     void printCategories();
 };
 
-void newCategoryForm(Categories *categories);
-
-void deleteCategoryForm(Categories *categories);
-
 
 #endif //PASSWORDMANAGER_CATEGORIES_H

@@ -253,3 +253,41 @@ string getEditNewValueForm(const string &valueName, const string &oldValue, stri
     if (newValue.empty()) newValue = oldValue;
     return newValue;
 };
+
+void Manager::deleteCategoryForm() {
+    std::string categoryNameToRemove;
+    this->getCategories()->printCategories();
+    std::cout << "Category name to delete: " << std::endl;
+    std::cin >> categoryNameToRemove;
+
+    this->getCategories()->removeName(categoryNameToRemove);
+    if (!this->getCategories()->getNames()[categoryNameToRemove]) {
+        std::cout << "Successfully deleted category: " << categoryNameToRemove << std::endl;
+        vector<Entry> entriesToStay{};
+        for (auto &entry: this->getEntries()) {
+            if (entry.getCategory() != categoryNameToRemove) {
+                entriesToStay.push_back(entry);
+            }
+        }
+        this->setEntries(entriesToStay);
+        overrideFile(this);
+        return;
+    }
+    std::cout << "Failed to delete category: " << categoryNameToRemove << std::endl;
+    deleteCategoryForm();
+}
+
+void newCategoryForm(Categories *categories) {
+    std::string name;
+    std::cout << "Name for category:" << std::endl;
+    std::cin >> name;
+
+    categories->addName(name);
+    if (categories->getNames()[name]) {
+        std::cout << "Successfully added category: " << name << std::endl;
+        return;
+    }
+    std::cout << "Failed to add category: " << name << std::endl;
+    newCategoryForm(categories);
+}
+

@@ -24,7 +24,13 @@ void Categories::addName(const std::string &name) {
 
 void Categories::removeName(const std::string &toDelete) {
     //TODO deleting not working
-    this->getNames().erase(toDelete);
+    std::map<std::string, int> namesToStay;
+    for (auto &name: this->getNames()) {
+        if (name.first != toDelete) {
+            namesToStay.insert({name.first, name.second});
+        }
+    }
+    this->setNames(namesToStay);
 }
 
 void Categories::printCategories() {
@@ -33,33 +39,4 @@ void Categories::printCategories() {
         std::cout << entry.first << std::endl;
     }
     std::cout << "--------------------------------------" << std::endl;
-}
-
-void newCategoryForm(Categories *categories) {
-    std::string name;
-    std::cout << "Name for category:" << std::endl;
-    std::cin >> name;
-
-    categories->addName(name);
-    if (categories->getNames()[name]) {
-        std::cout << "Successfully added category: " << name << std::endl;
-        return;
-    }
-    std::cout << "Failed to add category: " << name << std::endl;
-    newCategoryForm(categories);
-}
-
-void deleteCategoryForm(Categories *categories) {
-    std::string name;
-    categories->printCategories();
-    std::cout << "Category name to delete: " << std::endl;
-    std::cin >> name;
-
-    categories->removeName(name);
-    if (!categories->getNames()[name]) {
-        std::cout << "Successfully deleted category: " << name << std::endl;
-        return;
-    }
-    std::cout << "Failed to delete category: " << name << std::endl;
-    deleteCategoryForm(categories);
 }
