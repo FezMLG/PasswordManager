@@ -13,19 +13,24 @@ static string controlSum{"519f56b8-c7bc-428f-928f-06bd8243f82d"};
 /**
  * @brief path to app data folder
  */
-static fs::path dataFolderPath = fs::path{"../data"};
+static fs::path dataFolderPath = fs::path{"../data1/"};
+
+/**
+ * @brief path to app data temp folder
+ */
+static fs::path dataTempFolderPath = fs::path{dataFolderPath.string() + "temp/"};
 
 /**
  * @brief path to temporarily decrypted file
  * @warning only for usage by app
  */
-static string decryptedFilePath = fs::path{"../data/temp/decrypted.txt"}.string();
+static string decryptedFilePath = fs::path{dataTempFolderPath.string() + "decrypted.txt"}.string();
 
 /**
  * @brief path to temp file
  * @warning only for usage by app
  */
-static string tempFilePath = fs::path{"../data/temp/temp.txt"}.string();
+static string tempFilePath = fs::path{dataTempFolderPath.string() + "temp.txt"}.string();
 
 bool checkIfFileExists(const std::string &name) {
     if (FILE *file = fopen(name.c_str(), "r")) {
@@ -37,6 +42,8 @@ bool checkIfFileExists(const std::string &name) {
 }
 
 string listAndSelectFile() {
+    fs::create_directory(dataFolderPath);
+    fs::create_directory(dataTempFolderPath);
     std::vector<fs::path> file_paths;
 
     for (const fs::directory_entry &entry: fs::directory_iterator(dataFolderPath)) {
@@ -52,6 +59,7 @@ string listAndSelectFile() {
         i++;
     }
     cout << "-1: Your own path" << endl;
+    cout << "-2: Create new file" << endl;
     cout << "-------------" << endl << "Select file number: " << endl;
     int selectedFile;
     cin >> selectedFile;
@@ -61,6 +69,15 @@ string listAndSelectFile() {
         cin >> userPath;
         if (!checkIfFileExists(userPath)) {
             cout << "File " << userPath << " does not exist" << endl;
+            exit(1);
+        }
+        return fs::path{userPath}.string();
+    } else if (selectedFile == -2) {
+        string userPath;
+        cout << "Type file name: " << endl;
+        cin >> userPath;
+        if (checkIfFileExists(userPath)) {
+            cout << "File " << userPath << " already exist" << endl;
             exit(1);
         }
         return fs::path{userPath}.string();
