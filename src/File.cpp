@@ -4,10 +4,28 @@
 
 #include "File.h"
 
+/**
+ *  @brief control sum to check if file is decrypted properly
+ *  @warning if changed, all previous files cannot be decrypted
+ */
 static string controlSum{"519f56b8-c7bc-428f-928f-06bd8243f82d"};
-fs::path dataFolderPath = fs::path{"../data"};
-string decryptedFilePath = fs::path{"../data/temp/decrypted.txt"}.string();
-string tempFilePath = fs::path{"../data/temp/temp.txt"}.string();
+
+/**
+ * @brief path to app data folder
+ */
+static fs::path dataFolderPath = fs::path{"../data"};
+
+/**
+ * @brief path to temporarily decrypted file
+ * @warning only for usage by app
+ */
+static string decryptedFilePath = fs::path{"../data/temp/decrypted.txt"}.string();
+
+/**
+ * @brief path to temp file
+ * @warning only for usage by app
+ */
+static string tempFilePath = fs::path{"../data/temp/temp.txt"}.string();
 
 bool checkIfFileExists(const std::string &name) {
     if (FILE *file = fopen(name.c_str(), "r")) {
@@ -108,7 +126,7 @@ void readFromFile(Manager *manager) {
     std::remove(decryptedFilePath.c_str());
 };
 
-string getControlSum(const string &file) {
+string getAndCheckControlSum(const string &file) {
     string control;
     fstream File(file);
     getline(File, control);
@@ -122,7 +140,7 @@ string getControlSum(const string &file) {
 void overrideFile(Manager *manager) {
     decryptFile(manager->getFilePath(), decryptedFilePath, manager->getPassword());
 
-    string control = getControlSum(decryptedFilePath);
+    string control = getAndCheckControlSum(decryptedFilePath);
     string text;
     for (auto &entry: manager->getEntries()) {
         text.append(entry.printForFile());
