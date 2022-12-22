@@ -23,7 +23,6 @@ void Categories::addName(const std::string &name) {
 }
 
 void Categories::removeName(const std::string &toDelete) {
-    //TODO deleting not working
     std::map<std::string, int> namesToStay;
     for (auto &name: this->getNames()) {
         if (name.first != toDelete) {
