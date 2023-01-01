@@ -9,6 +9,7 @@
 #include "Entry.h"
 #include "Categories.h"
 #include <utility>
+#include <functional>
 
 using namespace std;
 
@@ -106,6 +107,17 @@ public:
      * @return password
      */
     static string passwordForm();
+
+    /**
+     * @brief sorts categories by selected params
+     * @param sort function for sorting
+     */
+    void sortEntries(function<bool(Entry &a, Entry &b)> sort);
+
+    /**
+    * @brief sort categories form
+    */
+    void sortEntriesForm();
 };
 
 /**

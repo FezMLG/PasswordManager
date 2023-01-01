@@ -328,6 +328,66 @@ string Manager::passwordForm() {
     return newPassword;
 }
 
+void Manager::sortEntries(function<bool(Entry &a, Entry &b)> sort) {
+    std::sort(this->getEntries().begin(), this->getEntries().end(), std::move(sort));
+}
+
+void Manager::sortEntriesForm() {
+    int selected_option = 1;
+
+    while (selected_option != -1) {
+        std::cout << "-----------SORTING-----------" << endl;
+        std::cout << "Sort categories by:" << endl;
+        std::cout << "1. Name" << endl;
+        std::cout << "2. Login" << endl;
+        std::cout << "3. Category" << endl;
+        std::cout << "4. Type" << endl;
+        std::cout << "5. Service" << endl;
+        std::cout << "6. Print and save entries" << endl;
+        std::cout << "-1. Go back to main manu" << endl;
+        std::cin >> selected_option;
+
+        switch (selected_option) {
+            case 1:
+
+                this->sortEntries([](Entry &a, Entry &b) {
+                    return a.getName() < b.getName();
+                });
+                break;
+            case 2:
+                this->sortEntries([](Entry &a, Entry &b) {
+                    return a.getLogin() < b.getLogin();
+                });
+                break;
+            case 3:
+                this->sortEntries([](Entry &a, Entry &b) {
+                    return a.getCategory() < b.getCategory();
+                });
+                break;
+            case 4:
+                this->sortEntries([](Entry &a, Entry &b) {
+                    return a.getType() < b.getType();
+                });
+                break;
+            case 5:
+                this->sortEntries([](Entry &a, Entry &b) {
+                    return a.getService() < b.getService();
+                });
+                break;
+            case 6:
+                for (auto &entry: this->getEntries()) {
+                    entry.print();
+                }
+                overrideFile(this);
+                break;
+            default:
+                std::cout << "Wrong option" << std::endl;
+                break;
+        }
+        mainMenu(this);
+    }
+}
+
 void newCategoryForm(Categories *categories) {
     std::string name;
     std::cout << "Name for category:" << std::endl;

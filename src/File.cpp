@@ -13,7 +13,7 @@ static string controlSum{"519f56b8-c7bc-428f-928f-06bd8243f82d"};
 /**
  * @brief path to app data folder
  */
-static fs::path dataFolderPath = fs::path{"../data1/"};
+static fs::path dataFolderPath = fs::path{"../data/"};
 
 /**
  * @brief path to app data temp folder

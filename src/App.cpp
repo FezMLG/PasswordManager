@@ -73,13 +73,7 @@ void handleOption(Manager *manager) {
             manager->searchForm(manager->getEntries());
             break;
         case 2:
-            //TODO sorting
-            std::sort(sortedEntries.begin(), sortedEntries.end(), [](Entry &a, Entry &b) {
-                return a.getName() < b.getName();
-            });
-            for (auto &entry: sortedEntries) {
-                entry.print();
-            }
+            manager->sortEntriesForm();
             break;
         case 3:
             manager->createNewEntryForm();
