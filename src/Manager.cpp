@@ -285,10 +285,25 @@ string Manager::passwordForm() {
 
     int passwordLength = 16;
     int passwordStrength = 0;
+    bool useSmallAndBig = true;
+    bool useSpecialChars = true;
     std::string newPassword;
+    string temp;
     switch (option) {
         case 1:
-            newPassword = Entry::generatePassword(passwordLength);
+            cout << "Number of characters" << endl;
+            cin >> passwordLength;
+            cout << "Use small and big characters? y - yes, n - no" << endl;
+            cin >> temp;
+            if (temp == "n") {
+                useSmallAndBig = false;
+            }
+            cout << "Use special characters? y - yes, n - no" << endl;
+            cin >> temp;
+            if (temp == "n") {
+                useSpecialChars = false;
+            }
+            newPassword = Entry::generatePassword(passwordLength, useSmallAndBig, useSpecialChars);
             cout << "Your password: " << newPassword << endl;
             break;
         case 2:
@@ -306,7 +321,7 @@ string Manager::passwordForm() {
             } while (passwordStrength < 4);
             break;
         default:
-            newPassword = Entry::generatePassword(passwordLength);
+            newPassword = Entry::generatePassword(passwordLength, true, true);
             cout << "Your password: " << newPassword << endl;
             break;
     }

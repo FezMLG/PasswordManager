@@ -48,11 +48,13 @@ public:
     string getService();
 
     /**
-     * @brief generating random password
+     * @brief generating random password from small, big letters, numbers and special characters
      * @param length length of the generated password
+     * @param useSmallAndBig if should use small and big letters, or only small
+     * @param useSpecialChars if should use special characters
      * @return generated password
      */
-    static string generatePassword(int &length);
+    static string generatePassword(int &length, bool useSmallAndBig, bool useSpecialChars);
 
     /**
      * @brief checking if password contains lowercase, uppercase, number, special char, length more than 8 and more than 16, and returning password strength on scale 0-6

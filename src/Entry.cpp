@@ -53,9 +53,14 @@ string Entry::getService() {
     return this->service;
 }
 
-string Entry::generatePassword(int &length) {
+string Entry::generatePassword(int &length, bool useSmallAndBig, bool useSpecialChars) {
     std::string password;
-    std::string characters = R"(ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\|;:'",.<>/?)";
+    std::string characters = R"(abcdefghijklmnopqrstuvwxyz0123456789)";
+    std::string big_characters = R"(ABCDEFGHIJKLMNOPQRSTUVWXYZ)";
+    std::string special_characters = R"(!@#$%^&*()-_=+[{]}\|;:'",.<>/?)";
+
+    if (useSmallAndBig) characters.append(big_characters);
+    if (useSpecialChars) characters.append(special_characters);
 
     // Random number generator
     std::random_device rd;
