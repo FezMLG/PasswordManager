@@ -106,7 +106,7 @@ public:
      * @brief Form for handling new password
      * @return password
      */
-    static string passwordForm();
+    string passwordForm();
 
     /**
      * @brief sorts categories by selected params

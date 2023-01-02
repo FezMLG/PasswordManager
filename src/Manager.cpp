@@ -311,8 +311,16 @@ string Manager::passwordForm() {
                 std::cout << "Your password:" << std::endl;
                 std::cin >> newPassword;
                 passwordStrength = Entry::checkPasswordStrength(newPassword);
+                for (auto &entry: this->getEntries()) {
+                    if (entry.getPassword() == newPassword) {
+                        cout << "You used that password before, are you sure you want to use it? y - yes, n - no"
+                             << endl;
+                        cin >> temp;
+                        if (temp == "n") passwordStrength = 0;
+                        break;
+                    }
+                }
                 std::cout << "Your password strength: " << passwordStrength << std::endl;
-
                 if (passwordStrength < 4) {
                     cout
                             << "Your password is too weak, make sure you have at least 8 characters, lower and upper case, number"
