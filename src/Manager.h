@@ -118,16 +118,16 @@ public:
     * @brief sort categories form
     */
     void sortEntriesForm(std::vector<Entry> entries);
-};
 
-/**
- * @brief Form for getting new value for Entry or keeping existing and returning as new
- * @param valueName name of Entry attribute
- * @param oldValue old value of Entry attribute
- * @param newValue variable that holds new attribute
- * @return string with new attribute
- */
-string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue);
+    /**
+     * @brief Form for getting new value for Entry or keeping existing and returning as new
+     * @param valueName name of Entry attribute
+     * @param oldValue old value of Entry attribute
+     * @param newValue variable that holds new attribute
+     * @return string with new attribute
+     */
+    string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue);
+};
 
 /**
  * @brief Form for creating new category

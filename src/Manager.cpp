@@ -8,6 +8,7 @@
 #include "Manager.h"
 #include "File.h"
 #include "App.h"
+#include "Utils.h"
 
 Manager::Manager(Categories *categories1) {
     this->entries = {};
@@ -45,7 +46,7 @@ void Manager::setEntries(vector<Entry> &newEntries) {
 void Manager::removeEntryForm() {
     string name;
     std::cout << "Name of entry" << endl;
-    std::cin >> name;
+    name = Utils::userInput();
 
     this->removeEntry(name);
 }
@@ -65,26 +66,26 @@ void Manager::createNewEntryForm() {
 
     do {
         std::cout << "Name:" << std::endl;
-        std::cin >> name;
+        name = Utils::userInput();
     } while (std::any_of(this->getNames().begin(), this->getNames().end(),
                          [&name](const string &i) { return i == name; }));
 
     std::cout << "Login:" << std::endl;
-    std::cin >> login;
+    login = Utils::userInput();
 
     password = passwordForm();
 
     categories->printCategories();
     do {
         std::cout << "Category:" << std::endl;
-        std::cin >> category;
+        category = Utils::userInput();
     } while (!categories->getNames()[category]);
 
     std::cout << "Type:" << std::endl;
-    std::cin >> type;
+    type = Utils::userInput();
 
     std::cout << "Service:" << std::endl;
-    std::cin >> service;
+    service = Utils::userInput();
 
     auto *entry = new Entry(name, login, password, category, type, service);
     entry->print();
@@ -114,7 +115,7 @@ void Manager::editEntryForm() {
     cout << "Type entry name to edit:" << endl;
 
     string nameToEdit;
-    cin >> nameToEdit;
+    nameToEdit = Utils::userInput();
 
     Entry oldEntry = getEntryWithName(nameToEdit);
     this->removeEntry(nameToEdit);
@@ -128,6 +129,7 @@ void Manager::editEntryForm() {
                          [&newName](const string &i) { return i == newName; }));
 
     newLogin = getEditNewValueForm("Login", oldEntry.getLogin(), newLogin);
+
     newPassword = getEditNewValueForm("Password", oldEntry.getPassword(), newPassword);
 
     categories->printCategories();
@@ -175,7 +177,7 @@ void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
     switch (option) {
         case 1:
             cout << "Type name to search:" << endl;
-            cin >> searchParam;
+            searchParam = Utils::userInput();
             for (auto &entry: *filteredEntries) {
                 if (entry.getName().find(searchParam) != std::string::npos) {
                     tempEntries.push_back(entry);
@@ -185,7 +187,7 @@ void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
             break;
         case 2:
             cout << "Type login to search:" << endl;
-            cin >> searchParam;
+            searchParam = Utils::userInput();
             for (auto &entry: *filteredEntries) {
                 if (entry.getLogin().find(searchParam) != std::string::npos) {
                     tempEntries.push_back(entry);
@@ -196,7 +198,7 @@ void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
         case 3:
             categories->printCategories();
             cout << "Type category to search:" << endl;
-            cin >> searchParam;
+            searchParam = Utils::userInput();
             for (auto &entry: *filteredEntries) {
                 if (entry.getCategory().find(searchParam) != std::string::npos) {
                     tempEntries.push_back(entry);
@@ -206,7 +208,7 @@ void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
             break;
         case 4:
             cout << "Type type to search:" << endl;
-            cin >> searchParam;
+            searchParam = Utils::userInput();
             for (auto &entry: *filteredEntries) {
                 if (entry.getType().find(searchParam) != std::string::npos) {
                     tempEntries.push_back(entry);
@@ -216,7 +218,7 @@ void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
             break;
         case 5:
             cout << "Type service to search:" << endl;
-            cin >> searchParam;
+            searchParam = Utils::userInput();
             for (auto &entry: *filteredEntries) {
                 if (entry.getService().find(searchParam) != std::string::npos) {
                     tempEntries.push_back(entry);
@@ -245,11 +247,20 @@ void Manager::printEntriesName() {
     }
 };
 
-string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue) {
-    std::cout << valueName << " [" << oldValue << "]: " << std::endl;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::getline(std::cin, newValue);
-    if (newValue.empty()) newValue = oldValue;
+string Manager::getEditNewValueForm(const string &valueName, const string &oldValue, string newValue) {
+    string option;
+    std::cout << valueName << " [" << oldValue << "]: y - to type new value, n - keep old value" << std::endl;
+    std::cin >> option;
+    if (option == "n") return oldValue;
+    if (valueName == "Password") {
+        std::cout << valueName << " [" << oldValue << "]: y - to type new value, n - keep old value" << std::endl;
+        std::cin >> option;
+        if (option != "n") {
+            newValue = this->passwordForm();
+        }
+    }
+    std::cout << "Type new value:" << std::endl;
+    newValue = Utils::userInput();
     return newValue;
 };
 
@@ -257,7 +268,7 @@ void Manager::deleteCategoryForm() {
     std::string categoryNameToRemove;
     this->getCategories()->printCategories();
     std::cout << "Category name to delete: " << std::endl;
-    std::cin >> categoryNameToRemove;
+    categoryNameToRemove = Utils::userInput();
 
     this->getCategories()->removeName(categoryNameToRemove);
     if (!this->getCategories()->getNames()[categoryNameToRemove]) {
@@ -403,7 +414,7 @@ void Manager::sortEntriesForm(std::vector<Entry> entries) {
 void newCategoryForm(Categories *categories) {
     std::string name;
     std::cout << "Name for category:" << std::endl;
-    std::cin >> name;
+    name = Utils::userInput();
 
     categories->addName(name);
     if (categories->getNames()[name]) {
