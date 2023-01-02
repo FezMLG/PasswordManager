@@ -76,8 +76,19 @@ void Manager::createNewEntryForm() {
 
     categories->printCategories();
     do {
+        if (this->getCategories()->getNames().empty()) {
+            newCategoryForm(this->getCategories());
+        }
+        string option;
         std::cout << "Category:" << std::endl;
         category = Utils::userInput();
+        if (!categories->getNames()[category]) {
+            std::cout << "This category does not exist, do you want to add new? y - yes, n - no" << std::endl;
+            std::cin >> option;
+            if (option == "y") {
+                newCategoryForm(this->getCategories());
+            }
+        }
     } while (!categories->getNames()[category]);
 
     std::cout << "Type:" << std::endl;
@@ -133,7 +144,18 @@ void Manager::editEntryForm() {
 
     categories->printCategories();
     do {
+        if (this->getCategories()->getNames().empty()) {
+            newCategoryForm(this->getCategories());
+        }
+        string option;
         newCategory = getEditNewValueForm("Category", oldEntry.getCategory(), newCategory);
+        if (!categories->getNames()[newCategory]) {
+            std::cout << "This category does not exist, do you want to add new? y - yes, n - no" << std::endl;
+            std::cin >> option;
+            if (option == "y") {
+                newCategoryForm(this->getCategories());
+            }
+        }
     } while (!categories->getNames()[newCategory]);
 
     newType = getEditNewValueForm("Type", oldEntry.getType(), newType);
