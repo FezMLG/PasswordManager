@@ -73,7 +73,7 @@ void handleOption(Manager *manager) {
             manager->searchForm(manager->getEntries());
             break;
         case 2:
-            manager->sortEntriesForm();
+            manager->sortEntriesForm(manager->getEntries());
             break;
         case 3:
             manager->createNewEntryForm();

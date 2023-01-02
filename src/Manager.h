@@ -112,12 +112,12 @@ public:
      * @brief sorts categories by selected params
      * @param sort function for sorting
      */
-    void sortEntries(function<bool(Entry &a, Entry &b)> sort);
+    static std::vector<Entry> sortEntries(std::vector<Entry> entries, function<bool(Entry &a, Entry &b)> sort);
 
     /**
     * @brief sort categories form
     */
-    void sortEntriesForm();
+    void sortEntriesForm(std::vector<Entry> entries);
 };
 
 /**

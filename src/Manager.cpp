@@ -328,14 +328,16 @@ string Manager::passwordForm() {
     return newPassword;
 }
 
-void Manager::sortEntries(function<bool(Entry &a, Entry &b)> sort) {
-    std::sort(this->getEntries().begin(), this->getEntries().end(), std::move(sort));
+std::vector<Entry> Manager::sortEntries(std::vector<Entry> entries, function<bool(Entry &a, Entry &b)> sort) {
+    std::sort(entries.begin(), entries.end(), std::move(sort));
+    return entries;
 }
 
-void Manager::sortEntriesForm() {
+void Manager::sortEntriesForm(std::vector<Entry> entries) {
     int selected_option = 1;
+    std::vector<Entry> entriesToSort = entries;
 
-    while (selected_option != -1) {
+    while (true) {
         std::cout << "-----------SORTING-----------" << endl;
         std::cout << "Sort categories by:" << endl;
         std::cout << "1. Name" << endl;
@@ -349,42 +351,44 @@ void Manager::sortEntriesForm() {
 
         switch (selected_option) {
             case 1:
-
-                this->sortEntries([](Entry &a, Entry &b) {
+                entriesToSort = this->sortEntries(entries, [](Entry &a, Entry &b) {
                     return a.getName() < b.getName();
                 });
                 break;
             case 2:
-                this->sortEntries([](Entry &a, Entry &b) {
+                entriesToSort = this->sortEntries(entries, [](Entry &a, Entry &b) {
                     return a.getLogin() < b.getLogin();
                 });
                 break;
             case 3:
-                this->sortEntries([](Entry &a, Entry &b) {
+                entriesToSort = this->sortEntries(entries, [](Entry &a, Entry &b) {
                     return a.getCategory() < b.getCategory();
                 });
                 break;
             case 4:
-                this->sortEntries([](Entry &a, Entry &b) {
+                entriesToSort = this->sortEntries(entries, [](Entry &a, Entry &b) {
                     return a.getType() < b.getType();
                 });
                 break;
             case 5:
-                this->sortEntries([](Entry &a, Entry &b) {
+                entriesToSort = this->sortEntries(entries, [](Entry &a, Entry &b) {
                     return a.getService() < b.getService();
                 });
                 break;
             case 6:
-                for (auto &entry: this->getEntries()) {
+                this->setEntries(entriesToSort);
+                for (auto &entry: entriesToSort) {
                     entry.print();
                 }
                 overrideFile(this);
+                //intentionally no break here
+            case -1:
+                mainMenu(this);
                 break;
             default:
                 std::cout << "Wrong option" << std::endl;
                 break;
         }
-        mainMenu(this);
     }
 }
 
