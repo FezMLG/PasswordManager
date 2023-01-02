@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <utility>
-#include <limits>
 #include "Manager.h"
 #include "File.h"
 #include "App.h"
@@ -168,7 +167,7 @@ void Manager::searchForm(vector<Entry> newEntries) {
     cout << "-1. Go to main menu" << endl;
     cin >> searchType;
     this->searchForEntryForm(searchType, &filteredEntries);
-};
+}
 
 void Manager::searchForEntryForm(int option, vector<Entry> *filteredEntries) {
     string searchParam;
@@ -245,7 +244,7 @@ void Manager::printEntriesName() {
     for (auto &entry: this->getEntries()) {
         cout << entry.getName() << endl;
     }
-};
+}
 
 string Manager::getEditNewValueForm(const string &valueName, const string &oldValue, string newValue) {
     string option;
@@ -262,7 +261,7 @@ string Manager::getEditNewValueForm(const string &valueName, const string &oldVa
     std::cout << "Type new value:" << std::endl;
     newValue = Utils::userInput();
     return newValue;
-};
+}
 
 void Manager::deleteCategoryForm() {
     std::string categoryNameToRemove;
@@ -295,7 +294,7 @@ string Manager::passwordForm() {
     std::cin >> option;
 
     int passwordLength = 16;
-    int passwordStrength = 0;
+    int passwordStrength;
     bool useSmallAndBig = true;
     bool useSpecialChars = true;
     std::string newPassword;

@@ -141,7 +141,7 @@ void readFromFile(Manager *manager) {
 
     LoadedFile.close();
     std::remove(decryptedFilePath.c_str());
-};
+}
 
 string getAndCheckControlSum(const string &file) {
     string control;
@@ -152,7 +152,7 @@ string getAndCheckControlSum(const string &file) {
     }
     File.close();
     return control;
-};
+}
 
 void overrideFile(Manager *manager) {
     decryptFile(manager->getFilePath(), decryptedFilePath, manager->getPassword());

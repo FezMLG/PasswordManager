@@ -17,7 +17,7 @@ void start() {
     }
     readFromFile(&manager);
     mainMenu(&manager);
-};
+}
 
 void manualEncryption(Manager *manager) {
     int mode;

@@ -11,6 +11,11 @@
 
 class Utils {
 public:
+
+    /**
+     * @brief takes user input and allowing spaces
+     * @return user input
+     */
     static std::string userInput();
 };
 
