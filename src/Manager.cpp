@@ -432,6 +432,26 @@ void Manager::sortEntriesForm(std::vector<Entry> entries) {
     }
 }
 
+void Manager::newCategoryWithRandomEntriesForm() {
+    newCategoryForm(this->getCategories());
+    for (int i = 0; i < 3; ++i) {
+        this->generateNewEntry();
+    }
+}
+
+void Manager::generateNewEntry() {
+    std::string category = this->getCategories()->getNames().begin()->first;
+
+    int length = 8;
+    int passLength = length * 2;
+    auto *entry = new Entry(Entry::generatePassword(length, true, false), Entry::generatePassword(length, true, false),
+                            Entry::generatePassword(passLength, true, true), category, Entry::generatePassword(length, true, false),
+                            Entry::generatePassword(length, true, false));
+    entry->print();
+    appendToFile(entry, this);
+    this->pushToEntries(*entry);
+}
+
 void newCategoryForm(Categories *categories) {
     std::string name;
     std::cout << "Name for category:" << std::endl;

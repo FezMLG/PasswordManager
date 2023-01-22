@@ -127,6 +127,10 @@ public:
      * @return string with new attribute
      */
     string getEditNewValueForm(const string &valueName, const string &oldValue, string newValue);
+
+    void newCategoryWithRandomEntriesForm();
+
+    void generateNewEntry();
 };
 
 /**

@@ -58,6 +58,8 @@ void mainMenu(Manager *manager) {
     std::cout << "6. Add new category" << std::endl;
     std::cout << "7. Delete category" << std::endl;
     std::cout << "8. List categories" << std::endl;
+    std::cout << "9. Add new category with 3 random entries" << std::endl;
+    std::cout << "10. Print passwords" << std::endl;
     std::cout << "-1. Exit" << std::endl;
     std::cout << "Choose option: " << std::endl;
     handleOption(manager);
@@ -93,6 +95,14 @@ void handleOption(Manager *manager) {
             break;
         case 8:
             manager->getCategories()->printCategories();
+            break;
+        case 9:
+            manager->newCategoryWithRandomEntriesForm();
+            break;
+        case 10:
+            for(auto& entry : manager->getEntries()){
+                entry.print();
+            }
             break;
         case -1:
             exit(0);

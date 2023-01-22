@@ -76,11 +76,11 @@ string listAndSelectFile() {
         string userPath;
         cout << "Type file name: " << endl;
         cin >> userPath;
-        if (checkIfFileExists(userPath)) {
+        if (checkIfFileExists(dataFolderPath.string() + userPath)) {
             cout << "File " << userPath << " already exist" << endl;
             exit(1);
         }
-        return fs::path{userPath}.string();
+        return fs::path{dataFolderPath.string() + userPath}.string();
     }
     return file_paths[selectedFile].string();
 }
