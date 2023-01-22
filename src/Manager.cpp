@@ -444,8 +444,11 @@ void Manager::generateNewEntry() {
 
     int length = 8;
     int passLength = length * 2;
-    auto *entry = new Entry(Entry::generatePassword(length, true, false), Entry::generatePassword(length, true, false),
-                            Entry::generatePassword(passLength, true, true), category, Entry::generatePassword(length, true, false),
+    auto *entry = new Entry(Entry::generatePassword(length, true, false),
+                            Entry::generatePassword(length, true, false),
+                            Entry::generatePassword(passLength, true, true),
+                            category,
+                            Entry::generatePassword(length, true, false),
                             Entry::generatePassword(length, true, false));
     entry->print();
     appendToFile(entry, this);
